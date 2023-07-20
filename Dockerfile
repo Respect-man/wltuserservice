@@ -1,16 +1,21 @@
-# syntax=docker/dockerfile:1
+FROM golang:1.19-buster
 
-FROM golang:1.16-alpine
+# Set the Current Working Directory inside the container
+WORKDIR /app/go-sample-app
 
-WORKDIR /app
-
-COPY go.mod ./
-COPY go.sum ./
+# We want to populate the module cache based on the go.{mod,sum} files.
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
 
-COPY . ./
+COPY . .
 
-RUN go build -o /wltuserservice
-EXPOSE 8060
-CMD [ "/wltuserservice" ] 
+# Build the Go app
+RUN go build -o ./out/wltuserservice .
+
+# This container exposes port 8080 to the outside world
+EXPOSE 8080
+
+# Run the binary program produced by `go install`
+CMD ["./out/wltuserservice"]
