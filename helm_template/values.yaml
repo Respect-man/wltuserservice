@@ -1,0 +1,16 @@
+image:
+  repository: 2254/go-sample-app
+  tag: latest
+  podName: wltservicepod
+  
+deployment:
+  name: eagletemplate
+  namespace: default
+  replicaCount: 3
+
+service:
+  type: ClusterIP
+  port: 8099
+  name: wltservice
+  targetPort: 8080
+  protocol: TCP
