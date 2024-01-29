@@ -17,7 +17,7 @@ func main() {
 	svc := gin.Default()
 	svc.GET("/", CheckServiceStatus)
 	svc.POST("/user/createuser", ctrn.CreateUser)
-	svc.Run(":8099")
+	svc.Run(":8080")
 }
 
 func CheckServiceStatus(ctx *gin.Context) {
